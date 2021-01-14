@@ -1,15 +1,9 @@
 import { Router } from 'express';
+import appointmentsRouter from './appointments.routes';
 
 const routes = Router();
 
-routes.post('/users', (request, response) => {
-  const { nome, email } = request.body;
-  const user = {
-    nome,
-    email,
-  };
-
-  return response.json(user);
-});
+// garante que toda a rota de appointments seja localhost:3333/appointments
+routes.use('/appointments', appointmentsRouter);
 
 export default routes;
