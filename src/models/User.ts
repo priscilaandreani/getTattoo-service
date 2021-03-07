@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 @Entity('users')
-class User {
+export default class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -28,8 +28,5 @@ class User {
   @UpdateDateColumn()
   update_at: Date;
 
-  @Column('timestamp with time zone')
-  date: Date;
 }
 
-export default User;
