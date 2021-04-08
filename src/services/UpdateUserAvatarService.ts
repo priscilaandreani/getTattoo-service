@@ -33,6 +33,8 @@ class UpdateUserAvatarService {
         await fs.promises.unlink(userAvatarFilePath);
       }
 
+      // seta o novo avatar
+
       user.avatar = avatarFileName;
 
       await usersRepository.save(user);
