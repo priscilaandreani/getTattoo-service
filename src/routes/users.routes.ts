@@ -19,6 +19,7 @@ usersRouter.post('/', async (request, response) => {
     password
   });
 
+  // Com a atualização do TypeScript, isso se faz necessário
   const userWithoutPassword = {
     id: user.id,
     name: user.name,
@@ -27,7 +28,7 @@ usersRouter.post('/', async (request, response) => {
     updated_at: user.updated_at
   };
 
-  return response.json(user);
+  return response.json(userWithoutPassword);
 });
 
 usersRouter.patch(
@@ -42,8 +43,15 @@ usersRouter.patch(
       avatarFileName: request.file.filename
     });
 
-    return response.json(user);
+    const userWithoutPassword = {
+      id: user?.id,
+      name: user?.name,
+      email: user?.email,
+      created_at: user?.created_at,
+      updated_at: user?.updated_at
+    };
+
+    return response.json(userWithoutPassword);
   }
 );
-
 export default usersRouter;
