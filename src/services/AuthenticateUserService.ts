@@ -13,7 +13,7 @@ interface Request {
 export default class AuthenticateUserService {
   public async execute({
     email,
-    password,
+    password
   }: Request): Promise<{ user: User; token: string }> {
     const usersRepository = getRepository(User);
 
@@ -34,12 +34,12 @@ export default class AuthenticateUserService {
     // Usuário autenticado
     const token = sign({}, authConfig.jwt.secret, {
       subject: user.id,
-      expiresIn: authConfig.jwt.expiresIn,
+      expiresIn: authConfig.jwt.expiresIn
     });
 
     return {
       user,
-      token,
+      token
     };
   }
 }

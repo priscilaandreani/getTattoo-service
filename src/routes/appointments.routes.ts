@@ -5,7 +5,6 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 import CreateAppointmentService from '../services/CreateAppointmentService';
 
-
 const appointmentsRouter = Router();
 
 appointmentsRouter.use(ensureAuthenticated);
@@ -27,7 +26,7 @@ appointmentsRouter.post('/', async (request, response) => {
 
     const appointment = await createAppointment.execute({
       date: parsedDate,
-      provider_id,
+      provider_id
     });
 
     return response.json(appointment);
