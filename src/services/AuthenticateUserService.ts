@@ -28,6 +28,7 @@ export default class AuthenticateUserService {
     // password - Senha que o usuário tentou utilizar (não cripotografada)
 
     const passwordMatched = await compare(password, user.password);
+
     if (!passwordMatched) {
       throw new AppError('Incorrect email/password combination.', 401);
     }

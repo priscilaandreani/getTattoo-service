@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { parseISO } from 'date-fns';
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
