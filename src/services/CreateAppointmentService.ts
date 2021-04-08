@@ -1,6 +1,7 @@
 import { startOfHour } from 'date-fns';
 import 'reflect-metadata';
 import { getCustomRepository } from 'typeorm';
+import AppError from '../errors/AppError';
 import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
@@ -18,23 +19,23 @@ interface RequestDTO {
 class CreateAppointmentService {
   public async execute({
     date,
-    provider_id,
+    provider_id
   }: RequestDTO): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
 
     const findAppointmentInSameDate = appointmentsRepository.findByDate(
-      appointmentDate,
+      appointmentDate
     );
 
     if (findAppointmentInSameDate) {
-      throw Error('Horário já agendado');
+      throw new AppError('Horário já agendado');
     }
 
     const appointment = appointmentsRepository.create({
       provider_id,
-      date: appointmentDate,
+      date: appointmentDate
     });
 
     await appointmentsRepository.save(appointment);
