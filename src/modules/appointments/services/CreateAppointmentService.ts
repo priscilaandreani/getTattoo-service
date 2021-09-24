@@ -4,6 +4,7 @@ import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 import AppointmentsRepository from '@modules/appointments/infra/typeorm/repositories/AppointmentsRepository';
+import IAppointmentsRepository from '../repositories/iAppointmentsRepository';
 
 /**
  *  Recebe das informações
@@ -17,6 +18,8 @@ interface RequestDTO {
 }
 
 class CreateAppointmentService {
+  constructor(private appointmentsRepository: IAppointmentsRepository) {}
+
   public async execute({
     date,
     provider_id
@@ -25,7 +28,7 @@ class CreateAppointmentService {
 
     const appointmentDate = startOfHour(date);
 
-    const findAppointmentInSameDate = appointmentsRepository.findByDate(
+    const findAppointmentInSameDate = this.appointmentsRepository.findByDate(
       appointmentDate
     );
 
@@ -33,7 +36,7 @@ class CreateAppointmentService {
       throw new AppError('Horário já agendado');
     }
 
-    const appointment = await appointmentsRepository.create({
+    const appointment = await this.appointmentsRepository.create({
       provider_id,
       date: appointmentDate
     });
