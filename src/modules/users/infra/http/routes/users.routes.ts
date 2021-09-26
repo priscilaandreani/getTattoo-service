@@ -1,58 +1,21 @@
 import { Router } from 'express';
 import multer from 'multer';
-import CreateUserService from '@modules/users/services/CreateUserService';
-import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 import uploadConfig from '@config/upload';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
-import { container } from 'tsyringe';
+import UsersController from '../controllers/UsersController';
+import UsersAvatarController from '../controllers/UserAvatarController';
 
 const usersRouter = Router();
+const usersAvatarController = new UsersAvatarController();
+const usersController = new UsersController();
 const upload = multer(uploadConfig);
 
-usersRouter.post('/', async (request, response) => {
-  const { name, email, password } = request.body;
-
-  const createUser = container.resolve(CreateUserService);
-
-  const user = await createUser.execute({
-    name,
-    email,
-    password
-  });
-
-  // Com a atualização do TypeScript, isso se faz necessário
-  const userWithoutPassword = {
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    created_at: user.created_at,
-    updated_at: user.updated_at
-  };
-
-  return response.json(userWithoutPassword);
-});
-
+usersRouter.post('/', usersController.create);
 usersRouter.patch(
   '/avatar',
   ensureAuthenticated,
   upload.single('avatar'),
-  async (request, response) => {
-    const updateUserAvatar = container.resolve(UpdateUserAvatarService);
-
-    const user = await updateUserAvatar.execute({
-      user_id: request.user.id,
-      avatarFileName: request.file.filename
-    });
-
-    const userWithoutPassword = {
-      id: user?.id,
-      name: user?.name,
-      email: user?.email,
-      created_at: user?.created_at,
-      updated_at: user?.updated_at
-    };
-
-    return response.json(userWithoutPassword);
-  }
+  usersAvatarController.update
 );
+
 export default usersRouter;
