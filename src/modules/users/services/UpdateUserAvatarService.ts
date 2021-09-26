@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import fs from 'fs';
 import path from 'path';
-import { getRepository } from 'typeorm';
 import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 import User from '@modules/users/infra/typeorm/entities/User';
+import { inject, injectable } from 'tsyringe';
 import IUserRepository from '../repositories/IUserRepository';
 
 interface AvatarRequest {
@@ -12,8 +12,12 @@ interface AvatarRequest {
   avatarFileName: string;
 }
 
+@injectable()
 class UpdateUserAvatarService {
-  constructor(private usersRepository: IUserRepository) {}
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUserRepository
+  ) {}
 
   public async execute({
     user_id,

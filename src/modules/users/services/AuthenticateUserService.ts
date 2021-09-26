@@ -5,6 +5,7 @@ import { getRepository } from 'typeorm';
 import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 import User from '@modules/users/infra/typeorm/entities/User';
+import { inject, injectable } from 'tsyringe';
 import IUserRepository from '../repositories/IUserRepository';
 
 interface Request {
@@ -12,8 +13,12 @@ interface Request {
   password: string;
 }
 
+@injectable()
 export default class AuthenticateUserService {
-  constructor(private usersRepository: IUserRepository) {}
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUserRepository
+  ) {}
 
   public async execute({
     email,
