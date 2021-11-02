@@ -14,8 +14,8 @@ export default class AlterProviderFieldToProviderId1615050663510
       new TableColumn({
         name: 'provider_id',
         type: 'uuid',
-        isNullable: true,
-      }),
+        isNullable: true
+      })
     );
 
     await queryRunner.createForeignKey(
@@ -26,8 +26,8 @@ export default class AlterProviderFieldToProviderId1615050663510
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
         onDelete: 'SET NULL',
-        onUpdate: 'CASCADE',
-      }),
+        onUpdate: 'CASCADE'
+      })
     );
   }
 
@@ -40,8 +40,8 @@ export default class AlterProviderFieldToProviderId1615050663510
       'appointments',
       new TableColumn({
         name: 'provider',
-        type: 'varchar',
-      }),
+        type: 'varchar'
+      })
     );
   }
 }
