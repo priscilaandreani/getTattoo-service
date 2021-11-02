@@ -29,15 +29,13 @@ class CreateAppointmentService {
     date,
     provider_id
   }: RequestDTO): Promise<Appointment> {
-    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
-
     const appointmentDate = startOfHour(date);
 
     const findAppointmentInSameDate = this.appointmentsRepository.findByDate(
       appointmentDate
     );
 
-    if (findAppointmentInSameDate) {
+    if (await findAppointmentInSameDate) {
       throw new AppError('Horário já agendado');
     }
 
