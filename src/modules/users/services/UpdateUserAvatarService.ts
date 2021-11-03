@@ -6,7 +6,7 @@ import IUserRepository from '../repositories/IUserRepository';
 
 interface AvatarRequest {
   user_id: string;
-  avatarFileName: string;
+  avatarFilename: string;
 }
 
 @injectable()
@@ -21,25 +21,24 @@ class UpdateUserAvatarService {
 
   public async execute({
     user_id,
-    avatarFileName
-  }: AvatarRequest): Promise<User | undefined> {
+    avatarFilename
+  }: AvatarRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
-      throw new AppError('Only authenticated user can change avatar.', 401);
+      throw new AppError('Only authenticated user can change avatar', 401);
     }
 
     if (user.avatar) {
-      // deletar o avatar anterior
       await this.storageProvider.deleteFile(user.avatar);
-      // seta o novo avatar
-
-      const fileName = await this.storageProvider.saveFile(avatarFileName);
-
-      user.avatar = fileName;
-
-      await this.usersRepository.save(user);
     }
+
+    const fileName = await this.storageProvider.saveFile(avatarFilename);
+
+    user.avatar = fileName;
+
+    await this.usersRepository.save(user);
+
     return user;
   }
 }
