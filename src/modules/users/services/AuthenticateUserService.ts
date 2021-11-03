@@ -1,4 +1,3 @@
-import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import 'reflect-metadata';
 import authConfig from '@config/auth';
