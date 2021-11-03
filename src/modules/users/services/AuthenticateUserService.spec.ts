@@ -1,3 +1,4 @@
+import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProviders';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import AuthenticateUserService from './AuthenticateUserService';
 import CreateUserService from './CreateUserService';
@@ -5,10 +6,18 @@ import CreateUserService from './CreateUserService';
 describe('AuthenticateUserService', () => {
   it('should be able to authenticate', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
-    const createUser = new CreateUserService(fakeUsersRepository);
-    const authenticateUser = new AuthenticateUserService(fakeUsersRepository);
+    const fakeHashProvider = new FakeHashProvider();
 
-    await createUser.execute({
+    const createUser = new CreateUserService(
+      fakeUsersRepository,
+      fakeHashProvider
+    );
+    const authenticateUser = new AuthenticateUserService(
+      fakeUsersRepository,
+      fakeHashProvider
+    );
+
+    const user = await createUser.execute({
       name: 'John Doe',
       email: 'johndoe@test.com',
       password: '123456'
@@ -20,5 +29,6 @@ describe('AuthenticateUserService', () => {
     });
 
     expect(response).toHaveProperty('token');
+    expect(response.user).toEqual(user);
   });
 });
