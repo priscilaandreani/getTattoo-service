@@ -1,7 +1,3 @@
-/* eslint-disable camelcase */
-import fs from 'fs';
-import path from 'path';
-import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 import User from '@modules/users/infra/typeorm/entities/User';
 import { inject, injectable } from 'tsyringe';
