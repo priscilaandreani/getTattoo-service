@@ -1,4 +1,7 @@
-### WIP: getTattoo service
+# WIP: getTattoo service
+
+Serviço da aplicação getTatto, desenvolvida em NodeJS.
+
 
 ## Recuperação de senha
 
@@ -16,8 +19,8 @@
 
 **Regras de negócio**
 
--[] O link enviado por email para resetar a senha deve expirar em 2h;
--[] O usuário precisa confirmar a nova senha ao resetar sua senha (confirmação de senha);
+- [] O link enviado por email para resetar a senha deve expirar em 2h;
+- [] O usuário precisa confirmar a nova senha ao resetar sua senha (confirmação de senha);
 
 ## Atualização do perfil
 
@@ -26,22 +29,22 @@
 - [] O usuário deve poder atualizar seu nome, email e senha;
 
 **Regras de negócio**
--[] O usuário não pode alterar seu email para um email já cadastrado na plataforma;
--[] Para atualizar sua senha o usuário deve infomar a senha antiga;
--[] Para atualizar sua senha, o usuário precisa confirmar a nova senha
+- [] O usuário não pode alterar seu email para um email já cadastrado na plataforma;
+- [] Para atualizar sua senha o usuário deve infomar a senha antiga;
+- [] Para atualizar sua senha, o usuário precisa confirmar a nova senha
 
 ## Painel do prestador
 
 **Requisitos funcionais**
 
--[] O usuário deve poder listar seus agendamentos de um dia específico;
--[] O prestador deve receber uma notificação sempre que houver um novo agendamento;
--[] O prestador deve poder visualizar as notificações não lidas;
+- [] O usuário deve poder listar seus agendamentos de um dia específico;
+- [] O prestador deve receber uma notificação sempre que houver um novo agendamento;
+- [] O prestador deve poder visualizar as notificações não lidas;
 
 **Requisitos não funcionais**
--[] Os agendamentos do prestador no dia devem ser armazenados em cache;
--[] As notificações do prestador devem ser armazenadas no MongoDB;
--[] As notificações do prestador devem ser enviadas em tempo-real utilizando Socket.io;
+- [] Os agendamentos do prestador no dia devem ser armazenados em cache;
+- [] As notificações do prestador devem ser armazenadas no MongoDB;
+- [] As notificações do prestador devem ser enviadas em tempo-real utilizando Socket.io;
 
 **Regras de negócio**
 
@@ -59,13 +62,11 @@
 **Requisitos não funcionais**
 
 - [] A listagem de prestadores deve ser armazenada em cache;
-- []
 
 **Regras de negócio**
 
 - [] Cada agendamento deve durar 1h\*;
 - [] Os agendamentos devem estar disponíveis entre 8h às 18h (primeiro horário as 8h, último as 17h);
-  -[] O usuário não pode agendar em um horário já ocupado;
-  -[] O usuário não pode agendar em um horário que já passou;
-  -[] O usuário não pode agendar serviços consigo mesmo;
-  -[]
+- [] O usuário não pode agendar em um horário já ocupado;
+- [] O usuário não pode agendar em um horário que já passou;
+- [] O usuário não pode agendar serviços consigo mesmo;
