@@ -1,8 +1,9 @@
 # WIP: getTattoo service
 
-Serviço da aplicação getTatto, desenvolvida em NodeJS.
+Serviço backend da aplicação getTatto
 
-
+- NodeJS: 15.7.0
+- Express: 4.17.1
 ## Recuperação de senha
 
 **Requisitos funcionais**
